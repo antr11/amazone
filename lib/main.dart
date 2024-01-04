@@ -1,3 +1,6 @@
+import 'package:amazone/constant/global_variables.dart';
+import 'package:amazone/features/auth/screens/auth_screen.dart';
+import 'package:amazone/route.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,9 +16,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AmaZone',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        colorScheme:
+            const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
       ),
-      home: const Text('Flutter Demo Home Page'),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const AuthScreen(),
     );
   }
 }
