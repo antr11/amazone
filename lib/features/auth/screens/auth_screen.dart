@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../common/widget/custom_button.dart';
 import '../../../common/widget/custom_textfield.dart';
 import '../../../constant/global_variables.dart';
+import '../service/auth_service.dart';
 
 enum Auth {
   signin,
@@ -21,7 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
-  // final AuthService authService = AuthService();
+  final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -31,6 +32,23 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+      name: _nameController.text,
+    );
+  }
+
+  void signInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
   }
 
   @override
@@ -98,7 +116,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           text: 'Sign Up',
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()) {
-                              // signUpUser();
+                              signUpUser();
                             }
                           },
                         )
@@ -149,7 +167,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           text: 'Sign In',
                           onTap: () {
                             if (_signInFormKey.currentState!.validate()) {
-                              // signInUser();
+                              signInUser();
                             }
                           },
                         )
