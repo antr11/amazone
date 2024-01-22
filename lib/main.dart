@@ -1,7 +1,6 @@
-import 'package:amazone/common/widget/bottom_bar.dart';
 import 'package:amazone/constant/global_variables.dart';
-import 'package:amazone/features/auth/screens/auth_screen.dart';
 import 'package:amazone/features/auth/service/auth_service.dart';
+import 'package:amazone/features/home/screen_manager.dart';
 
 import 'package:amazone/route.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +28,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    authService.getUserData(context: context);
+    // authService.getUserData(context: context);
   }
 
   @override
   Widget build(BuildContext context) {
+    //   return MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'AmaZone',
+    //     theme: ThemeData(
+    //       scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+    //       colorScheme:
+    //           const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+    //       appBarTheme: const AppBarTheme(
+    //         elevation: 0,
+    //         iconTheme: IconThemeData(color: Colors.black),
+    //       ),
+    //     ),
+    //     onGenerateRoute: (settings) => generateRoute(settings),
+    //     home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+    //         ? const BottomBar()
+    //         : const AuthScreen(),
+    //   );
+    // }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AmaZone',
@@ -47,9 +64,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
-          : const AuthScreen(),
+      home: const ScreenManager(),
     );
   }
 }
