@@ -4,12 +4,14 @@ const DB = "mongodb+srv://nholkey:thanhtruc@cluster0.zvj91qn.mongodb.net/?retryW
 // const adminRouter = require("./routes/admin");
 // IMPORTS FROM OTHER FILES
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
 //init
 const PORT = 3000;
 const app = express();
 //middleware
 app.use(express.json())
 app.use(authRouter);
+app.use(adminRouter);
 //create APi
 // CRUD
 //connection
