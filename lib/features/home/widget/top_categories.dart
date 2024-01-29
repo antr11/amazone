@@ -1,7 +1,14 @@
 import 'package:amazone/constant/global_variables.dart';
 import 'package:flutter/material.dart';
 
+import '../screen/category_deals_screen.dart';
+
 class TopCategories extends StatelessWidget {
+  void navigateToCategoryPage(BuildContext context, String category) {
+    Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+        arguments: category);
+  }
+
   const TopCategories({super.key});
 
   @override
@@ -13,28 +20,32 @@ class TopCategories extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemExtent: 75,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      GlobalVariables.categoryImages[index]['image']!,
-                      fit: BoxFit.cover,
-                      height: 40,
-                      width: 40,
+            return GestureDetector(
+              onTap: () => navigateToCategoryPage(
+                  context, GlobalVariables.categoryImages[index]['title']!),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        GlobalVariables.categoryImages[index]['image']!,
+                        fit: BoxFit.cover,
+                        height: 40,
+                        width: 40,
+                      ),
                     ),
                   ),
-                ),
-                Text(
-                  GlobalVariables.categoryImages[index]['title']!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                  Text(
+                    GlobalVariables.categoryImages[index]['title']!,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }),
     );
