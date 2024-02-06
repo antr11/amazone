@@ -1,4 +1,5 @@
 import 'package:amazone/constant/global_variables.dart';
+import 'package:amazone/features/cart/screens/cart_screen.dart';
 import 'package:amazone/features/home/screen/home_screen.dart';
 import 'package:amazone/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const AccountScreen(),
-    const Center(
-      child: Text("3"),
-    ),
+    const CartScreen(),
   ];
 
   void updatePage(int page) {
