@@ -108,7 +108,7 @@ class _CartProductState extends State<CartProduct> {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () => decreaseQuantity(product),
                       child: Container(
                         width: 35,
                         height: 32,
