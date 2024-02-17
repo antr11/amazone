@@ -67,23 +67,26 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 150,
+                  height: 170,
                   child: GridView.builder(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.only(left: 15),
                     itemCount: productList!.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 1.4,
-                            mainAxisSpacing: 10),
+                      crossAxisCount: 1,
+                      childAspectRatio: 1.4,
+                      mainAxisSpacing: 10,
+                    ),
                     itemBuilder: (context, index) {
                       final product = productList![index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, ProductDetailScreen.routeName,
-                              arguments: product);
+                            context,
+                            ProductDetailScreen.routeName,
+                            arguments: product,
+                          );
                         },
                         child: Column(
                           children: [
@@ -91,23 +94,32 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                               height: 130,
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black12, width: 0.5)),
+                                  border: Border.all(
+                                    color: Colors.black12,
+                                    width: 0.5,
+                                  ),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
-                                  child: Image.network(product.images[0]),
+                                  child: Image.network(
+                                    product.images[0],
+                                  ),
                                 ),
                               ),
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.fromLTRB(0, 5, 15, 0),
+                              padding: const EdgeInsets.only(
+                                left: 0,
+                                top: 5,
+                                right: 15,
+                              ),
                               child: Text(
                                 product.name,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       );
