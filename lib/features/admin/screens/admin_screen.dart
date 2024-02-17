@@ -2,6 +2,7 @@ import 'package:amazone/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/global_variables.dart';
+import 'orders_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -23,9 +24,7 @@ class _AdminScreenState extends State<AdminScreen> {
     const Center(
       child: Text("2"),
     ),
-    const Center(
-      child: Text("3"),
-    ),
+    const OrdersScreen(),
   ];
 
   void updatePage(int page) {

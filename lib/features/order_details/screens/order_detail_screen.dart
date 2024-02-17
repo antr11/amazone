@@ -1,7 +1,10 @@
 import 'package:amazone/models/order.dart';
+import 'package:amazone/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../../common/widget/custom_button.dart';
 import '../../../constant/global_variables.dart';
 import '../../admin/services/admin_services.dart';
 import '../../search/screens/search_screen.dart';
@@ -27,22 +30,24 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     super.initState();
     currentStep = widget.order.status;
   }
-  //   // !!! ONLY FOR ADMIN!!!
-  // void changeOrderStatus(int status) {
-  //   adminServices.changeOrderStatus(
-  //     context: context,
-  //     status: status + 1,
-  //     order: widget.order,
-  //     onSuccess: () {
-  //       setState(() {
-  //         currentStep += 1;
-  //       });
-  //     },
-  //   );
-  // }
+
+  // for admin role
+  void changeOrderStatus(int status) {
+    adminServices.changeOrderStatus(
+      context: context,
+      status: status + 1,
+      order: widget.order,
+      onSuccess: () {
+        setState(() {
+          currentStep += 1;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -213,12 +218,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               child: Stepper(
                 currentStep: currentStep,
                 controlsBuilder: (context, details) {
-                  // if (user.type == 'admin') {
-                  //   return CustomButton(
-                  //     text: 'Done',
-                  //     onTap: (){},
-                  //   );
-                  // }
+                  if (user.type == 'admin') {
+                    return CustomButton(
+                      text: 'Done',
+                      onTap: () => changeOrderStatus(details.currentStep),
+                    );
+                  }
                   return const SizedBox();
                 },
                 steps: [
