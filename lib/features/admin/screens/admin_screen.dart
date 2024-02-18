@@ -2,6 +2,7 @@ import 'package:amazone/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/global_variables.dart';
+import 'analtyics_screen.dart';
 import 'orders_screen.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -21,9 +22,7 @@ class _AdminScreenState extends State<AdminScreen> {
     // const AnalyticsScreen(),
     // const OrdersScreen(),
     const PostsScreen(),
-    const Center(
-      child: Text("2"),
-    ),
+    const AnalyticsScreen(),
     const OrdersScreen(),
   ];
 
