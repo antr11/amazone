@@ -25,7 +25,6 @@ class _CartScreenState extends State<CartScreen> {
   void navigateToAddress(int sum) {
     Navigator.pushNamed(context, AddressScreen.routeName,
         arguments: sum.toString());
-    print("address");
   }
 
   @override

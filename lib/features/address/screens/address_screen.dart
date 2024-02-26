@@ -1,3 +1,4 @@
+import 'package:amazone/common/widget/custom_button.dart';
 import 'package:amazone/constant/payment_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
@@ -61,6 +62,7 @@ class _AddressScreenState extends State<AddressScreen> {
       context: context,
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
+      payment: 'card',
     );
   }
 
@@ -76,7 +78,61 @@ class _AddressScreenState extends State<AddressScreen> {
       context: context,
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
+      payment: 'card',
     );
+  }
+
+  void onCashPayment(String addressFromProvider) {
+    // if (Provider.of<UserProvider>(context, listen: false)
+    //     .user
+    //     .address
+    //     .isEmpty) {
+    //   addressServices.saveUserAddress(
+    //       context: context, address: addressToBeUsed);
+    //   addressServices.placeOrder(
+    //       context: context,
+    //       address: addressToBeUsed,
+    //       totalSum: double.parse(widget.totalAmount),
+    //       payment: "cash");
+    // }
+
+    addressToBeUsed = "";
+    bool isForm = flatBuildingController.text.isNotEmpty ||
+        areaController.text.isNotEmpty ||
+        pincodeController.text.isNotEmpty ||
+        cityController.text.isNotEmpty;
+    if (isForm) {
+      if (_addressFormKey.currentState!.validate()) {
+        addressToBeUsed =
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
+        if (Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isEmpty) {
+          addressServices.saveUserAddress(
+              context: context, address: addressToBeUsed);
+          addressServices.placeOrder(
+              context: context,
+              address: addressToBeUsed,
+              totalSum: double.parse(widget.totalAmount),
+              payment: "cash");
+        }
+      } else {
+        throw Exception('Please enter all the values!');
+      }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUsed = addressFromProvider;
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+      addressServices.placeOrder(
+          context: context,
+          address: addressToBeUsed,
+          totalSum: double.parse(widget.totalAmount),
+          payment: "cash");
+      print(addressFromProvider);
+    } else {
+      showSnackBar(context, 'ERROR');
+    }
   }
 
   void payPressed(String addressFromProvider) {
@@ -99,7 +155,6 @@ class _AddressScreenState extends State<AddressScreen> {
     } else {
       showSnackBar(context, 'ERROR');
     }
-    print("address:$addressToBeUsed ");
   }
 
   @override
@@ -206,6 +261,14 @@ class _AddressScreenState extends State<AddressScreen> {
                 loadingIndicator: const Center(
                   child: CircularProgressIndicator(),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+                child: Text("OR"),
+              ),
+              CustomButton(
+                text: 'Pay in cash',
+                onTap: () => onCashPayment(address),
               ),
             ],
           ),

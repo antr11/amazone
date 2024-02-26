@@ -51,6 +51,7 @@ class AddressServices {
     required BuildContext context,
     required String address,
     required double totalSum,
+    required String payment,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -64,6 +65,7 @@ class AddressServices {
             'cart': userProvider.user.cart,
             'address': address,
             'totalPrice': totalSum,
+            'payment': payment,
           }));
 
       httpErrorHandle(
